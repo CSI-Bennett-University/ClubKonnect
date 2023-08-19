@@ -25,7 +25,6 @@
         </div>
       </div>
     {% endfor %}
-
-    <a class="px-6 py-2 btn btn-accent rounded mb-6" href="/create_form/">New form</a>
+    {% if request.user.is_superuser %}<a class="px-6 py-2 btn btn-accent rounded mb-6" href="/create_form/">New form</a>{% endif %}
   </div>
 {% endblock %}
