@@ -1,7 +1,7 @@
 from django.db import models
-# from allauth.socialaccount.signals import pre_social_login
+# from allauth.socialaccount.signals import social_account_added
 # from django.dispatch import receiver
-# from allauth.socialaccount.models import SocialAccount
+# from allauth.socialaccount.models import SocialAccount, SocialToken
 
 class Choices(models.Model):
     choice = models.CharField(max_length=200)
@@ -79,14 +79,28 @@ class entries(models.Model):
         return f'{self.user.username} - {self.form.name}'
 
 
+class deleted_entries(models.Model):
+    form = models.ForeignKey(Forms, on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    data = models.JSONField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    notes = models.TextField(blank=True, null=True, default="")
+    status = models.CharField(
+        choices=(
+            ('pending', 'Pending'),
+            ('under_review', 'Under Review'),
+            ('in_progress', 'In Progress'),
+            ('shortlisted', 'Shortlisted'),
+            ('approved', 'Approved'),
+            ('rejected', 'Rejected'),
+        ),
+        default='pending',
+        max_length=200
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f'{self.user.username} - {self.form.name}'
 
 
 
-
-# @receiver(pre_social_login)
-# def pre_social_login(request, sociallogin, **kwargs):
-#     user = sociallogin.user
-#     if sociallogin.account.provider == "linkedin_oauth2":
-#         print("Linkedin")
-#         print(sociallogin)
-#         print(sociallogin.account.extra_data)
