@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "ClubKonnect"
+version = "0.1.0"
+description = "Platform for Recruitments"
+readme = "README.md"
+authors = ["Rachit Khurana <hi@rachitkhurana.tech>", "CSI BU <csi@bennett.edu.in>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "^4.2.4"
+psycopg2-binary = "^2.9.7"
+python-dotenv = "^1.0.0"
+django-allauth = "^0.54.0"
+django-allauth-ui = "^0.1.4"
+django-widget-tweaks = "^1.4.12"
+whitenoise = "^6.5.0"
+
