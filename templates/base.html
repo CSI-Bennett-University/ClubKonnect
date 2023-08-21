@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html data-theme="dark">
 	<head>
@@ -26,9 +27,10 @@
 		<script src="" async defer></script>
 		<div class="navbar bg-neutral py-4 flex-col sm:flex-row">
 			<div class="flex-1 mb-4 sm:mb-0">
-				<a class="px-4 font-bold text-primary-content btn btn-ghost normal-case text-xl" href="/"
-					>Computer Society of India</a
-				>
+				<a class="px-4 font-bold text-primary-content btn btn-ghost normal-case text-xl flex" href="{% url 'home' %}">
+					<img src="{% static "csilogo.png" %}" class="h-10">
+					Computer Society of India
+				</a>
 			</div>
 			<div class="flex-none">
 				{% if request.user.is_staff %}
