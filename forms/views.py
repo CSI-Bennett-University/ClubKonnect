@@ -292,6 +292,22 @@ def save_notes(request, entry_id):
         return JsonResponse({'success': False})
     
 @staff_req
+def save_feedback(request, entry_id):
+    if request.method == 'POST':
+        entry = entries.objects.get(id=entry_id)
+        form = entry.form
+        if form.group_allowed.filter(id__in=request.user.groups.all()).count() > 0 or request.user.is_superuser:
+            pass
+        else:
+            return redirect('home')
+        new_feedback = json.loads(request.body)
+        entry.feedback = new_feedback["feedback"]
+        entry.save()
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False})
+
+@staff_req
 def form_entries(request, form_id):
     form = Forms.objects.get(id=form_id)
     status_filter = request.GET.get('status', None)
@@ -376,7 +392,10 @@ def change_form_status(request, entry_id):
             [entry.user.email], 
             html_message=html_message,
         )
-        return JsonResponse({'success': True, 'new_status': new_status})
+        if new_status.lower() == 'accepted' or new_status.lower() == 'rejected':
+            return JsonResponse({'success': True, 'new_status': new_status, 'feedback': entry.feedback})
+        else:  
+            return JsonResponse({'success': True, 'new_status': new_status})
     else:
         return JsonResponse({'success': False})
 

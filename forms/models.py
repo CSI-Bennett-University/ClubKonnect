@@ -61,6 +61,7 @@ class entries(models.Model):
     data = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(blank=True, null=True, default="")
+    feedback = models.TextField(blank=True, null=True, default="")
     status = models.CharField(
         choices=(
             ('pending', 'Pending'),

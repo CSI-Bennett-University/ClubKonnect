@@ -1,7 +1,27 @@
 <html>
+  <head>
+    <style>
+      #feedback_box {
+        border: 1px solid black;
+        padding: 10px;
+        margin: 10px;
+      }
+    </style>
+  </head>
   <body>
     <h1>Status Update</h1>
     <p>Hi {{ user.username }},</p>
-    <p>Your status for the form: `{{ form }}` has been updated to {{ new_status }}.</p>
+    <p>
+      Your status for the form: `{{ form }}` has been updated to {{ new_status }}.
+    </p>
+    {% if new_status == 'accepted' or new_status == 'rejected' %}
+      {% if feedback %}
+      <p>Feedback:</p>
+      <div id="feedback_box">{{ feedback }}</div>
+      {% endif %}
+    {% endif %}
+
+    <p>Thanks,</p>
+    <p>CSI Bennett University</p>
   </body>
 </html>
