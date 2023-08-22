@@ -2,14 +2,12 @@
 {% load is_list %}
 
 <script>
-  // Add the script here
-  let typingTimer;
-
-  const typingDelay = 2000;
-
-  function save_notes() {
+  function save_notes(no_r = false) {
     save_btn = document.getElementById("notes_save_btn");
     save_btn_txt = document.getElementById("save_btn_txt");
+    if (save_btn_txt.classList.contains("loading", "loading-dots")) {
+      save_btn_txt.classList.remove("loading", "loading-dots");
+    }
     save_btn.disabled = true;
     save_btn_txt.classList.add("loading", "loading-spinner");
     fetch("{% url 'edit_entry_notes' entry.id %}", {
@@ -28,32 +26,77 @@
         save_btn_txt.classList.remove("loading", "loading-spinner");
         console.log(data);
         if (data.success) {
-          XSAlert({
-            title: "Notes Saved",
-            message: "The notes have been saved successfully.",
-            hideCancelButton: true,
-            closeOnOutsideClick: true,
-            closeWithESC: true,
-          });
+          if (no_r) {
+            pass
+          }
+          else{
+          alert("Notes saved successfully.");
+          }
         } else {
-          XSAlert({
-            title: "Error",
-            message:
-              "There was an error while saving the notes. Please try again later.",
-            hideCancelButton: true,
-            closeOnOutsideClick: true,
-            closeWithESC: true,
-          });
+          if (no_r) {
+            pass
+          }
+          else{
+          alert("There was an error while saving the notes. Please try again.");
+          }
         }
       });
   }
 
-  function onTextareaInput() {
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(() => {
-      save_notes();
-    }, typingDelay);
+  function debounce(func, delay) {
+    console.log("debounce", func);
+    let timeoutId;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(function() {
+        func.apply(context, args);
+      }, delay);
+    };
   }
+
+  function save_feedback(no_r = false) {
+    save_btn_f = document.getElementById("feedback_save_btn");
+    save_btn_txt_f = document.getElementById("save_btn_txt_f");
+    if (save_btn_txt_f.classList.contains("loading", "loading-dots")) {
+      save_btn_txt_f.classList.remove("loading", "loading-dots");
+    }
+    save_btn_f.disabled = true;
+    save_btn_txt_f.classList.add("loading", "loading-spinner");
+    fetch("{% url 'edit_entry_feedback' entry.id %}", {
+      method: "POST",
+      body: JSON.stringify({
+        feedback: document.getElementById("feedback_text").value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        save_btn_f.disabled = false;
+        save_btn_txt_f.classList.remove("loading", "loading-spinner");
+        console.log(data);
+        if (data.success) {
+          if (no_r) {
+            pass
+          }
+          else{
+          alert("Feedback saved successfully.");
+          }
+        } else {
+          if (no_r) {
+            pass
+          }
+          else{
+          alert("There was an error while saving the feedback. Please try again.");
+          }
+        }
+      });
+  }
+
 
   function change_status() {
     change_status_btn = document.getElementById("change_status");
@@ -95,6 +138,33 @@
       }
     })
   }
+
+  function debouncedFunction_notes (){
+     let db = debounce(save_notes, 500);
+     const save_notes_btn = document.getElementById("save_btn_txt");
+      save_notes_btn.disabled = true;
+      if (save_notes_btn.classList.contains("loading", "loading-dots")) {
+        pass
+      }
+      else{
+      save_notes_btn.classList.add("loading", "loading-dots");
+      }
+     db(true);
+  }
+  function debouncedFunction_feedback (){
+     let db = debounce(save_feedback, 500);
+     const save_feedback_btn = document.getElementById("save_btn_txt_f");
+      save_feedback_btn.disabled = true;
+      if (save_feedback_btn.classList.contains("loading", "loading-dots")) {
+        pass
+      }
+      else{
+      save_feedback_btn.classList.add("loading", "loading-dots");
+      }
+     db(true);
+  }
+
+
 </script>
 {% endblock script %} {% block main %} {% load get_value_by_key %}
 <div>
@@ -150,10 +220,19 @@
 
 <div>
   <div class="text-xl font-semibold">Notes:</div>
-  <textarea class="w-full textarea textarea-accent rounded mt-2" rows="10">
+  <textarea class="w-full textarea textarea-accent rounded mt-2" rows="10" id="notes_text" onkeydown="debouncedFunction_notes()">
 {{ entry.notes }}</textarea>
   <div>
-  <button class="btn btn-accent rounded mt-4" onclick="save_notes()" id="notes_save_btn"><span id="save_btn_txt">Save</span></button>
+  <button class="btn btn-accent rounded mt-4" onclick="save_notes()" id="notes_save_btn"><span id="save_btn_txt">Saved</span></button>
+  </div>
+</div>
+
+<div>
+  <div class="text-xl font-semibold">Feedback:</div>
+  <textarea class="w-full textarea textarea-accent rounded mt-2" rows="10" id="feedback_text" onkeydown="debouncedFunction_feedback()">
+{{ entry.feedback }}</textarea>
+  <div>
+  <button class="btn btn-accent rounded mt-4" onclick="save_notes()" id="feedback_save_btn"><span id="save_btn_txt_f">Saved</span></button>
   </div>
 </div>
 
@@ -165,6 +244,8 @@
     </label><br/>
   <select id="change_status" class="select select-accent select-sm rounded">
     <option value="pending" {% if entry.status  == 'pending' %}selected{% endif %}>Pending</option>
+    <option value="rejected" {% if entry.status  == 'under_review' %}selected{% endif %}>Under Review</option>
+    <option value="rejected" {% if entry.status  == 'shortlisted' %}selected{% endif %}>Shortlisted</option>
     <option value="approved" {% if entry.status  == 'approved' %}selected{% endif %}>Approved</option>
     <option value="rejected" {% if entry.status  == 'rejected' %}selected{% endif %}>Rejected</option>
   </select>
