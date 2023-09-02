@@ -2,7 +2,7 @@
 <details {% if status_filter %}open{% endif %}>
   <summary>Filters</summary>
   {% for status in all_statuses %}
-  <a href="{% url 'form_entries' form.id %}?status={{status}}" class="btn btn-primary {% if status_filter == status %}{% else %}btn-outline{% endif %} mt-4 rounded">{{ status }}</a>
+  <a href="{% url 'form_entries' form.id %}?status={{status}}" class="btn btn-outline mr-2 {% if status_filter == status %}btn-accent{% else %}btn-nuetral{% endif %} mt-4 rounded">{{ status }}</a>
   {% endfor %}
 
 </details>
@@ -34,7 +34,7 @@
   {% endif %} {% endwith %}
 
   {% endfor %}
-      <a href="{% url 'entry_detail' entry.id %}" class="btn btn-primary btn-outline mt-4 rounded">View Entry</a>
+      <a href="{% url 'entry_detail' entry.id %}" class="btn btn-accent btn-outline mt-4 mr-2 rounded">View Entry</a>
       <a href="{% url 'delete_entry' entry.id %}" class="btn btn-error btn-outline mt-4 rounded">Delete Entry</a>
 
 </div>
