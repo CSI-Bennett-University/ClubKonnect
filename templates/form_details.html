@@ -20,13 +20,23 @@
       <input type="checkbox" name="linkedin_required" value="{{form.linkedin_required}}" class="checkbox checkbox-accent rounded" {% if linkedin %}{% if form.linkedin_required %} checked {% endif %}{% else %}disabled{% endif %} onchange="show_save_button()"></input>
     </label>
     <!-- Change the button type to 'button' and add an 'id' attribute -->
-    <button type="button" id="submitForm" class="btn btn-success w-36 rounded-xl hidden"><span id="save_btn">Save Changes</span></button>
+    <button type="button" id="submitForm" class="btn btn-primary mt-4 w-36 rounded hidden"><span id="save_btn">Save Changes</span></button>
   </form>
   <br>
   <a href="{% url 'edit_form_fields' form_id=form.id %}">
-    <button class="btn btn-outline btn-primary rounded">View And Edit Fields ➔</button>
+    <button class="btn btn-outline btn-accent rounded">View And Edit Fields ➔</button>
   </a>
 </div>
+
+<dialog id="form_updated_modal" class="modal">
+  <form method="dialog" class="modal-box">
+    <h3 class="font-bold text-lg">Form Updated!</h3>
+    <p class="mt-2">Your form has been updated successfully.</p>
+    <div class="modal-action">
+      <button class="btn btn-accent">Close</button>
+    </div>
+  </form>
+</dialog>
 
 <script>
   document.getElementById('submitForm').addEventListener('click', function(e) {
@@ -54,34 +64,16 @@
       submit_button.classList.remove('loading', 'loading-spinner', 'text-neutral');
       document.getElementById('submitForm').classList.add('hidden');
       if (response.ok) {
-        console.log(response.json());
-        XSAlert({
-          title: "Form Updated!",
-          hideCancelButton: true,
-          closeOnOutsideClick: true,
-          closeWithESC: true
-        })
+        form_updated_modal.showModal();
       }
       else
       {
-        XSAlert({
-          title: "Error!",
-          message: "Something went wrong. Please try again. <br> Error: "+response.status+" "+response,
-          hideCancelButton: true,
-          closeOnOutsideClick: true,
-          closeWithESC: true
-        })
+        error_modal.showModal();
       }
     })
     .catch(error => {
       console.log(error);
-      XSAlert({
-        title: "Error!",
-        message: "Something went wrong. Please try again. <br> Error: "+error,
-        hideCancelButton: true,
-        closeOnOutsideClick: true,
-        closeWithESC: true
-      })
+      error_modal.showModal();
     });
   });
 
@@ -93,6 +85,16 @@
 
   }
 </script>
+
+<dialog id="error_modal" class="modal">
+  <form method="dialog" class="modal-box">
+    <h3 class="font-bold text-lg">Error!</h3>
+    <p class="py-4">Something went wrong. Please try again.</p>
+    <div class="modal-action">
+      <button class="btn btn-error">Close</button>
+    </div>
+  </form>
+</dialog>
 
 {% endblock main %}
 

@@ -185,17 +185,7 @@ function addOption(button) {
         console.log(data);
         save_btn.disabled = false;
         save_btn_txt.classList.remove("loading", "loading-spinner");
-        XSAlert({
-          title: "Form Updated!",
-          hideCancelButton: true,
-          closeOnOutsideClick: true,
-          closeWithESC: true,
-          okButtonText: "Back to Dashboard",
-        }).then((result) => {
-          if (result == 'ok' ) {
-            window.location.href = "{% url 'all_forms' %}";
-          }
-        });
+        form_fields_updated_modal.showModal();
       })
       .catch((error) => {
         // Handle any errors that occurred during the request
@@ -220,13 +210,13 @@ function addOption(button) {
         <div id="all_fields" class="form-control">
             {% for field in form.fields.all %}
                 <div id="fields"
-                     class="border border-2 border-primary rounded-md p-5 m-2 flex gap-2 flex-wrap justify-between">
+                     class="border border border-base rounded-md p-5 m-2 flex gap-2 flex-wrap justify-between">
                                          <div class="reorder-buttons flex md:flex-col gap-4">
                         <button type="button"
-                                class="btn btn-secondary btn-sm rounded font-bold"
+                                class="btn btn-accent btn-sm rounded font-bold"
                                 onclick="moveFieldUp(this)">↑</button>
                         <button type="button"
-                                class="btn btn-secondary btn-sm rounded font-bold"
+                                class="btn btn-accent btn-sm rounded font-bold"
                                 onclick="moveFieldDown(this)">↓</button>
                   </div>
                     <div>
@@ -290,14 +280,24 @@ function addOption(button) {
     <button
       type="button"
       id="add_field"
-      class="btn btn-primary rounded my-4"
+      class="btn btn-primary rounded my-4 mr-2"
       onclick="addInputField()"
     >
       Add Field
     </button>
-    <button type="button" class="btn btn-primary rounded" onclick="sendFormData()" id="save_button">
+    <button type="button" class="btn btn-accent rounded" onclick="sendFormData()" id="save_button">
       <span id="save_button_txt">Save Form</span>
     </button>
   </div>
+</div>
+
+<dialog id="form_fields_updated_modal" class="modal">
+  <form method="dialog" class="modal-box">
+    <h3 class="font-bold text-lg">Form Updated!</h3>
+    <p>Form fields have been updated successfully.</p>
+    <div class="modal-action">
+      <button class="btn btn-accent">Close</button>
     </div>
+  </form>
+</dialog>
 {% endblock main %}
