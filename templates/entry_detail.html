@@ -232,8 +232,8 @@
     </label><br/>
   <select id="change_status" class="select select-accent select-sm rounded">
     <option value="pending" {% if entry.status  == 'pending' %}selected{% endif %}>Pending</option>
-    <option value="rejected" {% if entry.status  == 'under_review' %}selected{% endif %}>Under Review</option>
-    <option value="rejected" {% if entry.status  == 'shortlisted' %}selected{% endif %}>Shortlisted</option>
+    <option value="under_review" {% if entry.status  == 'under_review' %}selected{% endif %}>Under Review</option>
+    <option value="shortlisted" {% if entry.status  == 'shortlisted' %}selected{% endif %}>Shortlisted</option>
     <option value="approved" {% if entry.status  == 'approved' %}selected{% endif %}>Approved</option>
     <option value="rejected" {% if entry.status  == 'rejected' %}selected{% endif %}>Rejected</option>
   </select>
