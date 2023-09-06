@@ -29,7 +29,6 @@ def new_form(request, form_id=None):
                 description=field['description'],
                 is_required=field['is_required'],
                 github_required=field['github_required'],
-                linkedin_required=field['linkedin_required'],
             )
             if field['type'] == 'select' or field['type'] == 'radio' or field['type'] == 'checkbox':
                 for choice in field['options']:
@@ -179,8 +178,6 @@ def form_detail(request, form_id):
         form.accepting_responses = data['accepting_responses']
         if github:
             form.github_required = data['github_required']
-        if linkedin:
-            form.linkedin_required = data['linkedin_required']
         form.name = data['name']
         form.description = data['description']
         form.save()
