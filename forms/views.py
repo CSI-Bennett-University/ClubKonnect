@@ -139,7 +139,6 @@ def create_form(request):
             is_published=data['is_published'],
             accepting_responses=data['accepting_responses'],
             github_required=data['github_required'],
-            linkedin_required=data['linkedin_required'],
         )
         return redirect('edit_form_fields', form_id=new_form.id)
     else:
