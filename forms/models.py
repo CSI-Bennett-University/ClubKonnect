@@ -42,6 +42,7 @@ class Field(models.Model):
 class Forms(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
+    department = models.CharField(max_length=200, blank=True, null=True)
     fields = models.ManyToManyField(Field, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

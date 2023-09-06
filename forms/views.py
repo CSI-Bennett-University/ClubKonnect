@@ -89,21 +89,15 @@ def form_view(request, form_id):
                     github_account = SocialAccount.objects.filter(user=request.user, provider='github')
                     if len(github_account) == 0:
                         return JsonResponse({'success': False, 'error': 'Github is required', 'social_connection_error': True})
-        if form.linkedin_required:
-                linkedin_app = SocialApp.objects.filter(provider='linkedin_oauth2')
-                if len(linkedin_app) > 0:
-                    linkedin_account = SocialAccount.objects.filter(user=request.user, provider='linkedin_oauth2')
-                    if len(linkedin_account) == 0:
-                        return JsonResponse({'success': False, 'error': 'Linkedin is required', 'social_connection_error': True})
         entries.objects.create(
             form=form,
             user=request.user,
             data=data
         )
-        html_message = render_to_string('email/form_submit.html', {'form': form, 'data': data})
+        html_message = render_to_string('email/form_submit.html', {'form': form, 'data': data, 'dept_name': form.department})
         plain_message = strip_tags(html_message)
 
-        send_mail("Thank You for applying", plain_message, f"Recruitments <{os.getenv('EMAIL_HOST_USER')}>", [request.user.email], fail_silently=False, html_message=html_message)
+        send_mail(f"Acknowledgment of Your Application for the {form.department} Department", plain_message, f"Recruitments <{os.getenv('EMAIL_HOST_USER')}>", [request.user.email], fail_silently=False, html_message=html_message)
         return JsonResponse({'success': True})
 
 @staff_req
@@ -138,13 +132,10 @@ def create_form(request):
             data['github_required'] = True
         else:
             data['github_required'] = False
-        if 'linkedin_required' in data and data['linkedin_required'] == 'on':
-            data['linkedin_required'] = True
-        else:
-            data['linkedin_required'] = False
         new_form = Forms.objects.create(
             name=data['name'],
             description=data['description'],
+            department=data['department'],
             is_published=data['is_published'],
             accepting_responses=data['accepting_responses'],
             github_required=data['github_required'],
@@ -385,8 +376,9 @@ def change_form_status(request, entry_id):
         entry.save()
         html_message = render_to_string('email/Status_update.html', {'user': entry.user, 'new_status': new_status, 'form': entry.form})
         plain_message = strip_tags(html_message)
+        subject=""
         send_mail(
-            'Status Update',
+            subject,
             plain_message,
             f"Recruitments <{os.getenv('EMAIL_HOST_USER')}>",
             [entry.user.email], 
