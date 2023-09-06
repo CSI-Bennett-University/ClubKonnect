@@ -374,9 +374,17 @@ def change_form_status(request, entry_id):
         new_status = json.loads(request.body)['status']
         entry.status = new_status
         entry.save()
-        html_message = render_to_string('email/Status_update.html', {'user': entry.user, 'new_status': new_status, 'form': entry.form})
+        if new_status.lower() == 'shortlisted':
+            html_message = render_to_string('email/shortlisted.html', {'user': entry.user, 'new_status': new_status, 'form': entry.form, 'dept_name': entry.form.department})
+            subject="Invitation for an Interview with the Computer Society of India"
+        elif new_status.lower() == 'rejected':
+            html_message = render_to_string('email/rejection.html', {'user': entry.user, 'new_status': new_status, 'form': entry.form, 'dept_name': entry.form.department})
+            subject="Notification of Application Rejection - Computer Society of India"
+        elif new_status.lower() == 'approved':
+            pass
+            # To Do
         plain_message = strip_tags(html_message)
-        subject=""
+
         send_mail(
             subject,
             plain_message,
