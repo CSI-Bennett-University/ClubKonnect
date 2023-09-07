@@ -1,7 +1,7 @@
 django
 psycopg2-binary
 python-dotenv
-django-allauth
+django-allauth==0.56.0
 django-allauth-ui
 django-widget-tweaks
 whitenoise
