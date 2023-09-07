@@ -13,16 +13,10 @@
 				if (github) {
 					git_checkbox = document.getElementById("github_checkbox");
 					git_checkbox.checked = true;
+					document.getElementById("not_github").classList.add("hidden");
 				} else {
 					github_checkbox = document.getElementById("github_checkbox");
 					github_checkbox.checked = false;
-				}
-				if (linkedin) {
-					linkedin_checkbox = document.getElementById("linkedin_checkbox");
-					linkedin_checkbox.checked = true;
-				} else {
-					linkedin_checkbox = document.getElementById("linkedin_checkbox");
-					linkedin_checkbox.checked = false;
 				}
 			});
 		return fdata;
@@ -49,6 +43,11 @@
 				console.error("Error:", error);
 			});
 	}
+
+	function github_popup(){
+		let connection_win = window.open("/accounts/github/login/?process=connect&next=/close/", "popup", "width=600,height=600,scrollbars=notoolbar=no,menubar=no,location=no,directories=no,status=no");
+	}
+	getSocial()
 </script>
 {% endblock %} {% block main %}
 <h1 class="text-[min(7vw,2.25rem)] font-bold">{{ form.name }}</h1>
@@ -104,7 +103,7 @@
 				{% endfor %}
 			</select>
 			{% elif i.field_type == 'radio' %}
-			<div class="">
+			<div>
 				{% for j in i.choices.all %}
 				<label class="label cursor-pointer flex justify-start gap-4">
 					<input class="radio radio-accent" type="radio" name="{{ i }}" id="{{ j }}" value="{{ j }}" />
@@ -207,15 +206,20 @@
 			</div>
 		</div>
 		{% if not user_github %}
-		<a href="/accounts/github/login/?process=connect" class="underline italic" target="_blank"><div class="btn btn-sm btn-outline btn-accent">Connect GitHub</div></a><br/>
-		<div class="flex gap-2">
-			<p class="mt-3">Already Connected?</p>
-			<button type="button" class="btn btn-sm btn-outline my-2" onclick="getSocial()">
-				Check again
-			</button>
+		<div id="not_github">
+			{% comment %} <a href="/accounts/github/login/?process=connect" class="underline italic" target="_blank"> {% endcomment %}
+				<div class="btn btn-sm btn-outline btn-accent" onclick="github_popup()">Connect GitHub</div>
+			{% comment %} </a> {% endcomment %}
+			<br/>
+			<div class="flex gap-2">
+				<p class="mt-3">Already Connected?</p>
+				<button type="button" class="btn btn-sm btn-outline my-2" onclick="getSocial()">
+					Check again
+				</button>
+			</div>
+			<p class="mt-2">Please connect your Github as its required in this form</p>
+			
 		</div>
-		<p class="mt-2">Please connect your Github as its required in this form</p>
-		
 		{% else %}
 		<p>You have already connected your GitHub</p>
 		{% endif %} {% endif %}

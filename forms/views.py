@@ -57,15 +57,10 @@ def form_view(request, form_id):
         if form.accepting_responses == False:
             return render(request, 'form_view.html', {'form': form})
         user_github = SocialAccount.objects.filter(user=user, provider='github')
-        user_linkedin = SocialAccount.objects.filter(user=user, provider='linkedin_oauth2')
         github_connected = False
-        linkedin_connected = False
         if len(user_github) > 0:
             github_connected = True
-        if len(user_linkedin) > 0:
-            linkedin_connected = True
-        user_linkedin = SocialAccount.objects.filter(user=user, provider='linkedin_oauth2')
-        return render(request, 'form_view.html', {'form': form, 'user_github': github_connected, 'user_linkedin': linkedin_connected})
+        return render(request, 'form_view.html', {'form': form, 'user_github': github_connected})
     elif request.method == "POST":
         data = {}
         for key in request.POST.keys():
@@ -83,7 +78,7 @@ def form_view(request, form_id):
             return JsonResponse({'success': False, 'error': 'The following fields are required: ' + required_fields[:-2]})
         
         if form.github_required:
-                github_app = SocialApp.objects.filter(provider='github')
+                github_app = SocialApp.objects.filter(provider='GitHub')
                 if len(github_app) > 0:
                     github_account = SocialAccount.objects.filter(user=request.user, provider='github')
                     if len(github_account) == 0:
@@ -378,7 +373,6 @@ def change_form_status(request, entry_id):
             subject="Notification of Application Rejection - Computer Society of India"
         elif new_status.lower() == 'approved':
             pass
-            # To Do
         plain_message = strip_tags(html_message)
 
         send_mail(
@@ -429,3 +423,6 @@ def delete_entry(request, entry_id):
     )
     entry.delete()
     return redirect(form_entries, form_id=form.id)
+
+def close(request):
+    return render(request, 'close.html')

@@ -40,6 +40,7 @@ urlpatterns = [
     path('entry/<int:entry_id>/status/', views.change_form_status, name='change_status'),
     path('accounts/', include('allauth.urls')),
     path('user_social', views.user_social, name='user_social'),
+    path('close/', views.close, name='close'),
 
 ]
 
