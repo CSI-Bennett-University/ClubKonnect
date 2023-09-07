@@ -203,15 +203,19 @@
 				{% endif %} 
 			</div>
 			<div>
-				<button type="button" class="btn btn-outline my-2 rounded-xl" onclick="getSocial()">
-					Refresh Social Connections
-				</button>
+
 			</div>
 		</div>
 		{% if not user_github %}
+		<a href="/accounts/github/login/?process=connect" class="underline italic" target="_blank"><button class="btn btn-sm btn-outline btn-accent">Connect GitHub</button></a><br/>
+		<div class="flex gap-2">
+			<p class="mt-3">Already Connected?</p>
+			<button type="button" class="btn btn-sm btn-outline my-2" onclick="getSocial()">
+				Check again
+			</button>
+		</div>
 		<p class="mt-2">Please connect your Github as its required in this form</p>
-		You can connect your Github
-		<a href="{% url 'socialaccount_connections' %}" class="underline italic">here</a>
+		
 		{% else %}
 		<p>You have already connected your GitHub</p>
 		{% endif %} {% endif %}
