@@ -143,7 +143,10 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SITE_ID = os.getenv('SITE_ID', 1)
+try:
+    SITE_ID = int(os.getenv('SITE_ID'))
+except:
+    SITE_ID = 2
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
