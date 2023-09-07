@@ -178,7 +178,7 @@
 		{% endfor %}
 	</div>
 	<div>
-		{% if form.github_required or form.linkedin_required %}
+		{% if form.github_required %}
 		<p class="text-3xl underline mt-4">Social Connections</p>
 		<div class="flex justify-between flex-col sm:flex-row">
 			<div>
@@ -200,25 +200,7 @@
 						%}
 						disabled />
 				</label>
-				{% endif %} {% if form.linkedin_required %}
-				<label class="label w-56">
-					<span class="label-text">LinkedIn Connected: </span>
-					<input
-						type="checkbox"
-						class="checkbox"
-						name="linkedin"
-						id="linkedin_checkbox"
-						value="linkedin"
-						required
-						{%
-						if
-						user_linkedin
-						%}checked{%
-						endif
-						%}
-						disabled />
-				</label>
-				{% endif %}
+				{% endif %} 
 			</div>
 			<div>
 				<button type="button" class="btn btn-outline my-2 rounded-xl" onclick="getSocial()">
@@ -226,12 +208,12 @@
 				</button>
 			</div>
 		</div>
-		{% if not user_github or not user_linkedin %}
-		<p class="mt-2">Please connect your Github and Linkedin as its required in this form</p>
-		You can connect your Github and Linkedin
+		{% if not user_github %}
+		<p class="mt-2">Please connect your Github as its required in this form</p>
+		You can connect your Github
 		<a href="{% url 'socialaccount_connections' %}" class="underline italic">here</a>
 		{% else %}
-		<p>You have already connected your Github and Linkedin</p>
+		<p>You have already connected your GitHub</p>
 		{% endif %} {% endif %}
 	</div>
 
