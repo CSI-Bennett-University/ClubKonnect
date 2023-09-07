@@ -160,14 +160,18 @@ USE_I18N = True
 USE_TZ = True
 
 
-
+DEFAULT_FROM_EMAIL = "CSI BU <hi@csi-bu.live>"
 EMAIL_BACKEND = 'Recruitments.custom_email_backend.ConditionalEmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-SERVER_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = os.getenv("hi@csi-bu.live")
+
+ANYMAIL = {
+    "SENDINBLUE_API_KEY": os.getenv('SENDINBLUE_KEY'),
+}
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
