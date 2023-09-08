@@ -34,8 +34,10 @@
   {% endif %} {% endwith %}
 
   {% endfor %}
+  <span class="font-bold">Status: {{ entry.status }}</span><br />
+
       <a href="{% url 'entry_detail' entry.id %}" class="btn btn-accent btn-outline mt-4 mr-2 rounded">View Entry</a>
-      <a href="{% url 'delete_entry' entry.id %}" class="btn btn-error btn-outline mt-4 rounded">Delete Entry</a>
+      {% if request.user.is_superuser %}<a href="{% url 'delete_entry' entry.id %}" class="btn btn-error btn-outline mt-4 rounded">Delete Entry</a>{% endif %}
 
 </div>
 {% endfor %} {% endblock main %}
