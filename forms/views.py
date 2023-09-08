@@ -372,7 +372,7 @@ def change_form_status(request, entry_id):
             html_message = render_to_string('email/rejection.html', {'user': entry.user, 'new_status': new_status, 'form': entry.form, 'dept_name': entry.form.department, 'feedback': entry.feedback})
             subject="Notification of Application Rejection - Computer Society of India"
         elif new_status.lower() == 'approved':
-            pass
+            return JsonResponse({'success': True, 'new_status': new_status})
         else:
             html_message = render_to_string('email/Status_update.html', {'user': entry.user, 'new_status': new_status, 'form': entry.form, 'dept_name': entry.form.department})
             subject="Status Update - Computer Society of India"
