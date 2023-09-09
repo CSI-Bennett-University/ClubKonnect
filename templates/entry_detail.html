@@ -238,10 +238,11 @@
     <option value="rejected" {% if entry.status  == 'rejected' %}selected{% endif %}>Rejected</option>
   </select>
   <br/>
-  <button onclick="change_status()" class="btn btn-outline btn-accent rounded my-4 my-2" id="change_status"><span id="change_status_txt">Change</span></button>
+  <button onclick="confirm_change_status_modal.showModal()" class="btn btn-outline btn-accent rounded my-4 my-2" id="change_status"><span id="change_status_txt">Change</span></button>
   </div>
 </div>
 
+{% comment %} Modal Templates {% endcomment %}
 <dialog id="entry_status_changed_modal" class="modal">
   <form method="dialog" class="modal-box">
     <h3 class="font-bold text-lg">Entry Status Changed</h3>
@@ -258,6 +259,23 @@
     <p class="py-4">The status of the entry has been changed successfully.</p>
     <div class="modal-action">
       <button class="btn btn-error">Close</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="confirm_change_status_modal" class="modal">
+  <form method="dialog" class="modal-box">
+    <h3 class="font-bold text-lg">Confirm Change Status</h3>
+    <p class="py-4">
+      <span class="text-red-500 font-bold">Warning: </span>
+      <span>Changing the status of the entry will send an email to the user.</span>
+      <br/>
+      <br/>
+      <span>Are you sure you want to continue?</span>
+    </p>
+    <div class="modal-action">
+      <button class="btn btn-accent btn-outline" onclick="change_status()">Confirm</button>
+      <button class="btn btn-error btn-outline">Cancel</button>
     </div>
   </form>
 </dialog>

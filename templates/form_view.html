@@ -61,7 +61,7 @@
 				>{{ i }}{% if i.is_required %}<span class="text-red-500 mx-5">*</span>{% endif %}</label
 			>
 			{% if i.description %}
-			<p class="help-text">{{ i.description }}</p>
+			<p class="help-text mb-2">{{ i.description }}</p>
 			{% endif %} {% if i.field_type == 'text' %}
 			<input
 				type="text"

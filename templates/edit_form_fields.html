@@ -8,36 +8,36 @@ function addInputField() {
   new_field_div.classList.add("border","border-primary", "rounded-md", "p-5", "m-2", "flex", "gap-2", "justify-between", "flex-wrap")
   new_field_div.id="fields"
   new_field_div.innerHTML = `
-                                         <div class="reorder-buttons flex md:flex-col gap-4">
+                      <div class="reorder-buttons flex md:flex-col gap-4">
                         <button type="button"
                                 class="btn btn-secondary btn-sm rounded font-bold"
                                 onclick="moveFieldUp(this)">↑</button>
                         <button type="button"
                                 class="btn btn-secondary btn-sm rounded font-bold"
                                 onclick="moveFieldDown(this)">↓</button>
-                  </div>
-                    <div>
-                      <label for="name" class="label "><span class="label-text">Field Name:</span></label>
-                      <input type="text"
-                             name="name"
-                             placeholder="Field Name"
-                             class="input input-primary w-72 rounded-xl" />
+                      </div>
+                      <div>
+                        <label for="name" class="label "><span class="label-text">Field Name:</span></label>
+                        <input type="text"
+                          name="name"
+                          placeholder="Field Name"
+                          class="input input-primary w-72 rounded" />
                       <label for="description" class="label "><span class="label-text">Description:</span></label>
                       <input type="text"
-                             name="description"
-                             placeholder="Description"
-                             class="input input-primary w-72 rounded-xl"/>
+                          name="description"
+                          placeholder="Description"
+                          class="input input-primary w-72 rounded"/>
                       <label for="placeholder" class="label "><span class="label-text">Placeholder:</span></label>
                       <input type="text"
-                             name="placeholder"
-                             placeholder="Placeholder"
-                             class="input input-primary w-72 rounded-xl"/>
-                          <label for="is_required" class="label w-56"><span class="label-text">Required:</span>
-                          <input type="checkbox" name="is_required" class="checkbox checkbox-primary rounded"/>
-                          </label>
+                          name="placeholder"
+                          placeholder="Placeholder"
+                          class="input input-primary w-72 rounded"/>
+                      <label for="is_required" class="label w-56"><span class="label-text">Required:</span>
+                        <input type="checkbox" name="is_required" class="checkbox checkbox-primary rounded"/>
+                      </label>
                       <label for="type" class="label "><span class="label-text">Field Type:</span></label>
                       <select name="type"
-                              class="select select-primary select-sm w-72 rounded-xl"
+                              class="select select-primary select-sm w-72 rounded"
                               onchange="changeFieldType(this)">
                           <option value="text" selected>Text</option>
                           <option value="number">Number</option>
@@ -50,7 +50,7 @@ function addInputField() {
                           <option value="radio">Radio</option>
                       </select>
                     </div>
-                    <button type="button" class="btn btn-error btn-sm rounded justify-self-end" onclick="deleteField(this)">Delete</button>
+                    <button type="button" class="btn btn-error btn-outline rounded justify-self-end" onclick="deleteField(this)">Delete</button>
   `;
 
   // Append the new field before the "Add Field" button
@@ -96,7 +96,7 @@ function addOption(button) {
   const newOptionDiv = document.createElement("div");
   newOptionDiv.innerHTML = `
   <div class="flex items-center my-1">
-      <input type="text" name="options" placeholder="Option" class="input input-primary input-sm w-72 rounded-xl" required>
+      <input type="text" name="options" placeholder="Option" class="input input-primary input-sm w-72 rounded" required>
       <button type="button" class="btn btn-secondary btn-sm ml-2 rounded-md font-bold" onclick="deleteOption(this)">-</button>
   </div>
   `;
