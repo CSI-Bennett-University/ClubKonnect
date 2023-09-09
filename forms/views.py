@@ -78,7 +78,7 @@ def form_view(request, form_id):
             return JsonResponse({'success': False, 'error': 'The following fields are required: ' + required_fields[:-2]})
         
         if form.github_required:
-                github_app = SocialApp.objects.filter(provider='GitHub')
+                github_app = SocialApp.objects.filter(provider='github')
                 if len(github_app) > 0:
                     github_account = SocialAccount.objects.filter(user=request.user, provider='github')
                     if len(github_account) == 0:

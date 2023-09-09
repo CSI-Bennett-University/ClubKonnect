@@ -25,7 +25,11 @@
 	function submitForm() {
 		const formElement = document.getElementById("renderedForm");
 		const formData = new FormData(formElement);
-
+		let button_text = document.getElementById("submit_form_txt");
+		button_text.classList.add("loading");
+		button_text.classList.add("loading-spinner");
+		const success_modal = document.getElementById("success_modal");
+		getSocial()
 		fetch("{% url 'form_view' form.id %}", {
 			method: "POST",
 			body: formData
@@ -36,12 +40,22 @@
 				if (data.success) {
 					success_modal.showModal();
 				} else {
-					error_modal.showModal();
+					if (data.social_connection_error){
+						s_error_modal.showModal();
+					}
+					else{
+						error_modal.showModal();
+					}
 				}
+				button_text.classList.remove("loading");
+				button_text.classList.remove("loading-spinner");
 			})
 			.catch((error) => {
 				console.error("Error:", error);
+				button_text.classList.remove("loading");
+				button_text.classList.remove("loading-spinner");
 			});
+
 	}
 
 	function github_popup(){
@@ -227,7 +241,7 @@
 
 	<div>
 		<button type="button" class="btn btn-accent mt-6 rounded" id="submit_form" onclick="submitForm()">
-			Submit Form
+			<span id="submit_form_txt">Submit Form</span>
 		</button>
 	</div>
 </form>
@@ -248,9 +262,22 @@
 <dialog id="error_modal" class="modal">
   <form method="dialog" class="modal-box">
     <h3 class="font-bold text-lg">Form Submission Failed!</h3>
-	<p>There was an error while submitting the form. Please try again later.</p>
+	<p>There was an error while submitting the form. Please check if you have filled all the required fields.</p>
     <div class="modal-action">
       <button class="btn btn-accent btn-error btn-outline" onclick="error_modal.close()">
+		Close
+	  </button>
+    </div>
+  </form>
+</dialog>
+
+
+<dialog id="s_error_modal" class="modal">
+  <form method="dialog" class="modal-box">
+    <h3 class="font-bold text-lg">Form Submission Failed!</h3>
+	<p>GitHub oauth required. Please connect your GitHub account.</p>
+    <div class="modal-action">
+      <button class="btn btn-accent btn-error btn-outline" onclick="s_error_modal.close()">
 		Close
 	  </button>
     </div>
