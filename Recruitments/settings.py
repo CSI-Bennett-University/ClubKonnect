@@ -42,7 +42,7 @@ if os.getenv('WEBSITE_DOMAIN') is not None:
 
 
 if not DEBUG:
-    ALLOWED_HOSTS.append(os.environ['WEBSITE_HOSTNAME'])
+    # ALLOWED_HOSTS.append(os.environ['WEBSITE_HOSTNAME'])
     if os.getenv('WEBSITE_DOMAIN') is not None:
         ALLOWED_HOSTS.append(os.environ['WEBSITE_DOMAIN'])
     # SECURE_SSL_REDIRECT = True
