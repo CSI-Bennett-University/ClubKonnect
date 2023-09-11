@@ -79,7 +79,7 @@
 			{% endif %} {% if i.field_type == 'text' %}
 			<input
 				type="text"
-				class="input input-accent rounded w-full"
+				class="input input-accent rounded w-full placeholder-gray-500"
 				id="{{ i }}"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
@@ -92,7 +92,7 @@
 			{% elif i.field_type == 'textarea' %}
 			<textarea
 				id="{{ i }}"
-				class="textarea textarea-accent rounded w-full"
+				class="textarea textarea-accent rounded w-full placeholder-gray-500"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
 				{%
@@ -105,7 +105,7 @@
 			<select
 				id="{{ i }}"
 				name="{{ i }}"
-				class="select select-accent rounded select-sm"
+				class="select select-accent rounded select-sm placeholder-gray-500"
 				{%
 				if
 				i.is_required
@@ -138,7 +138,7 @@
 			{% endfor %} {% elif i.field_type == 'email' %}
 			<input
 				type="email"
-				class="input rounded input-accent w-full"
+				class="input rounded input-accent w-full placeholder-gray-500"
 				id="{{ i }}"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
@@ -163,7 +163,7 @@
 			{% elif i.field_type == 'number' %}
 			<input
 				type="number"
-				class="input input-accent rounded w-full"
+				class="input input-accent rounded w-full placeholder-gray-500"
 				id="{{ i }}"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
@@ -176,7 +176,7 @@
 			{% elif i.field_type == 'url' %}
 			<input
 				type="url"
-				class="input input-accent rounded w-full"
+				class="input input-accent rounded w-full placeholder-gray-500"
 				id="{{ i }}"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
