@@ -19,7 +19,9 @@
           </div>
         </div>
         <div class="flex gap-2">
+          {% if request.user.is_superuser %}
           <a href="{% url 'form_details' form.id %}" class="btn btn-accent rounded-xl">Edit</a><br/>
+          {% endif %}
           <a href="{% url 'form_view' form.id %}" class="btn btn-accent rounded-xl" target="_blank">Preview 🡕</a>
           <a href="{% url 'form_entries' form.id %}" class="btn btn-accent rounded-xl">View Responses</a>
         </div>

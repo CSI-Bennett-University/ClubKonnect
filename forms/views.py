@@ -152,7 +152,8 @@ def create_form(request):
 @staff_req
 def form_detail(request, form_id):
     form = Forms.objects.get(id=form_id)
-    if form.group_allowed.filter(id__in=request.user.groups.all()).count() > 0 or request.user.is_superuser:
+    # if form.group_allowed.filter(id__in=request.user.groups.all()).count() > 0 or request.user.is_superuser:
+    if request.user.is_superuser:
         pass
     else:
         return redirect('home')
@@ -184,7 +185,8 @@ def form_detail(request, form_id):
 @staff_req
 def edit_form_fields(request, form_id):
     form = Forms.objects.get(id=form_id)
-    if form.group_allowed.filter(id__in=request.user.groups.all()).count() > 0 or request.user.is_superuser:
+    # if form.group_allowed.filter(id__in=request.user.groups.all()).count() > 0 or request.user.is_superuser:
+    if request.user.is_superuser:
         pass
     else:
         return redirect('home')
