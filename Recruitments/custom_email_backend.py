@@ -12,7 +12,7 @@ class ConditionalEmailBackend:
         
         # Use SMTP backend if all environment variables are present
         if email_host and email_user and email_password:
-            self.email_backend = SendinblueEmailBackend(*args, **kwargs)
+            self.email_backend = EmailBackend(*args, **kwargs)
         else:
             # Use dummy backend if any of the environment variables is missing
             self.email_backend = ConsoleEmailBackend(*args, **kwargs)
@@ -24,5 +24,5 @@ class ConditionalEmailBackend:
         try:
             return self.email_backend.send_messages(email_messages)
         except:
-            self.email_backend = EmailBackend()
+            self.email_backend = SendinblueEmailBackend()
             return self.email_backend.send_messages(email_messages)
