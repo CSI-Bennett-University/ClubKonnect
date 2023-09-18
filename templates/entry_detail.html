@@ -168,8 +168,8 @@
       </tr>
     </thead>
     <tbody>
-  {% for field in entry.form.fields.all %} 
-  {% with field_value=entry.data|get_value_by_key:field.field %} {% if field.field_type == 'checkbox' %}
+  {% for field in entry.data %} 
+  {% with field_value=entry.data|get_value_by_key:field %} {% if field.field_type == 'checkbox' %}
 
     <td>{{ field.field }}:</td>
     <td>
