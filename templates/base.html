@@ -1,134 +1,70 @@
 {% load static %}
 <!DOCTYPE html>
-<html data-theme="dark">
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>CSI BU {% block head_title %}{% endblock %}</title>
-		<meta name="description" content="Application forms for CSI BU" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="" />
-		<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<link href="https://cdn.jsdelivr.net/npm/daisyui@3.3.1/dist/full.css" rel="stylesheet" type="text/css" />
-		<script src="https://unpkg.com/htmx.org@1.9.3"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<!-- XSAlert CSS -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/frankeno/xsalert@main/src/themes/light-theme.css" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap"
-			rel="stylesheet" />
-		<style>
-			#bg_svg {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				box-sizing: border-box;
-				display: block;
-			}
-		</style>
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-ET9CW39LC8"></script>
-		<script>
+<html data-theme="night">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>CSI BU {% block head_title %}{% endblock %}</title>
+	<meta name="description" content="Application forms for CSI BU" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="" />
+	<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdn.jsdelivr.net/npm/daisyui@3.3.1/dist/full.css" rel="stylesheet" type="text/css" />
+	<script src="https://unpkg.com/htmx.org@1.9.3"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<!-- XSAlert CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/frankeno/xsalert@main/src/themes/light-theme.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+	<style>
+		body {
+			/* background-color: black; */
+			background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+		}
+	</style>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-ET9CW39LC8"></script>
+	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
+		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 
 		gtag('config', 'G-ET9CW39LC8');
-		</script>
-		{% block script %} {% endblock %}
-	</head>
-	<body class="font-['Montserrat']">
-		<script src="" async defer></script>
-		<div class="navbar py-4 flex-col sm:flex-row">
-			<div class="flex-1 mb-4 sm:mb-0">
-				<a class="px-4 font-bold text-primary-content btn btn-ghost normal-case text-xl flex" href="{% url 'home' %}">
-					<img src="{% static "csilogo.png" %}" class="h-10" alt="CSI Logo">
-					Computer Society of India
-				</a>
-			</div>
-			<div class="flex-none">
-				{% if request.user.is_staff %}
-				<a href="{% url 'all_forms' %}" class="btn btn-accent btn-outline mr-3 rounded">Dashboard</a>
-				{% endif %} {% if request.user.is_authenticated %}
-				<a href="{% url 'account_logout' %}" class="btn btn-error btn-outline rounded">Logout</a>
-				{% else %}
-				<a href="{% url 'account_login' %}" class="btn btn-accent btn-outline rounded mr-3">Login</a>
-				<a href="{% url 'account_signup' %}" class="btn btn-accent btn-outline rounded">Sign Up</a>
-				{% endif %}
-			</div>
+	</script>
+	{% block script %} {% endblock %}
+</head>
+
+<body class="font-['Poppins'] min-h-screen">
+	<script src="" async defer></script>
+	<div class="navbar py-4 sm:px-32 sm:py-10 flex-col sm:flex-row">
+		<div class="flex-1 mt-6 mb-10 sm:mt-0 sm:mb-0">
+			<a class="px-4 font-bold text-primary btn-ghost normal-case text-xl sm:text-2xl"
+				href="{% url 'home' %}">
+				<div class="flex-col flex sm:flex-row gap-x-4 items-center">
+					<img src="{% static "csilogo.png" %}" class="h-16" alt="CSI Logo">
+					<p class="py-2 sm:py-0">Computer Society of India</p>
+				</div>
+			</a>
 		</div>
-		<div class="flex justify-center">
-			<div class="w-11/12 md:w-8/12 py-5 px-[min(2vw,2.5rem)] z-10">{% block main %} {% endblock %}</div>
+		<div class="flex-none">
+			{% if request.user.is_staff %}
+			<a href="{% url 'all_forms' %}" class="mr-3 rounded-none px-5 py-3 border-indigo-500 border hover:bg-indigo-500 font-bold uppercase text-indigo-500 hover:text-black">Dashboard</a>
+			{% endif %} {% if request.user.is_authenticated %}
+			<a href="{% url 'account_logout' %}" class="rounded-none px-5 py-3 border border-indigo-500 hover:bg-indigo-500 font-bold uppercase text-indigo-500 hover:text-black">Logout</a>
+			{% else %}
+			<a href="{% url 'account_login' %}" class="mr-3 rounded-none px-5 py-3 border-indigo-500 border hover:bg-indigo-500 font-bold uppercase text-indigo-500 hover:text-black">Login</a>
+			<a href="{% url 'account_signup' %}" class="mr-3 rounded-none px-5 py-3 border-indigo-500 border hover:bg-indigo-500 font-bold uppercase text-indigo-500 hover:text-black">Sign Up</a>
+			{% endif %}
 		</div>
-			<svg
-		x="0px"
-		y="0px"
-		width="100%"
-		height="100%"
-		class="absolute z-0 opacity-30 pointer-events-none"
-		viewBox="0 0 1600 900"
-		preserveAspectRatio="xMidYMax slice"
-		id="bg_svg"
-	>
-		<defs>
-			<linearGradient id="bg">
-				<stop offset="0%" style="stop-color:rgba(130, 158, 249, 0.06)" />
-				<stop offset="50%" style="stop-color:rgba(76, 190, 255, 0.6)" />
-				<stop offset="100%" style="stop-color:rgba(115, 209, 72, 0.2)" />
-			</linearGradient>
-			<path
-				id="wave"
-				fill="url(#bg)"
-				d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
-	s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z"
-			/>
-		</defs>
-		<g>
-			<use xlink:href="#wave" opacity=".3">
-				<animateTransform
-					attributeName="transform"
-					attributeType="XML"
-					type="translate"
-					dur="10s"
-					calcMode="spline"
-					values="270 230; -334 180; 270 230"
-					keyTimes="0; .5; 1"
-					keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-					repeatCount="indefinite"
-				/>
-			</use>
-			<use xlink:href="#wave" opacity=".6">
-				<animateTransform
-					attributeName="transform"
-					attributeType="XML"
-					type="translate"
-					dur="8s"
-					calcMode="spline"
-					values="-270 230;243 220;-270 230"
-					keyTimes="0; .6; 1"
-					keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-					repeatCount="indefinite"
-				/>
-			</use>
-			<use xlink:href="#wave" opacity="0.9">
-				<animateTransform
-					attributeName="transform"
-					attributeType="XML"
-					type="translate"
-					dur="6s"
-					calcMode="spline"
-					values="0 230;-140 200;0 230"
-					keyTimes="0; .4; 1"
-					keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-					repeatCount="indefinite"
-				/>
-			</use>
-		</g>
-	</svg>
-	</body>
+	</div>
+	<div class="flex justify-center">
+		<div class="w-11/12 md:w-8/12 py-5 px-[min(2vw,2.5rem)] z-10">{% block main %} {% endblock %}</div>
+	</div>
+</body>
+
 </html>

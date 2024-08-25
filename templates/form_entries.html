@@ -2,13 +2,13 @@
 <details {% if status_filter %}open{% endif %}>
   <summary>Filters</summary>
   {% for status in all_statuses %}
-  <a href="{% url 'form_entries' form.id %}?status={{status}}" class="btn btn-outline mr-2 {% if status_filter == status %}btn-accent{% else %}btn-nuetral{% endif %} mt-4 rounded">{{ status }}</a>
+  <a href="{% url 'form_entries' form.id %}?status={{status}}" class="btn btn-outline mr-2 {% if status_filter == status %}btn-accent{% else %}btn-nuetral{% endif %} mt-4 rounded-none">{{ status }}</a>
   {% endfor %}
 
 </details>
 {% for entry in entries %}
 
-<div class="border border-gray-500 m-5 p-5 rounded-xl">
+<div class="border border-gray-500 m-5 p-5 rounded-none">
   <span class="text-3xl bold">{{ entry.user }}</span><br />
 
   {% for field in entry.form.fields.all %} 
@@ -36,8 +36,8 @@
   {% endfor %}
   <span class="font-bold">Status: {{ entry.status }}</span><br />
 
-      <a href="{% url 'entry_detail' entry.id %}" class="btn btn-accent btn-outline mt-4 mr-2 rounded">View Entry</a>
-      {% if request.user.is_superuser %}<a href="{% url 'delete_entry' entry.id %}" class="btn btn-error btn-outline mt-4 rounded">Delete Entry</a>{% endif %}
+      <a href="{% url 'entry_detail' entry.id %}" class="btn btn-accent btn-outline mt-4 mr-2 rounded-none">View Entry</a>
+      {% if request.user.is_superuser %}<a href="{% url 'delete_entry' entry.id %}" class="btn btn-error btn-outline mt-4 rounded-none">Delete Entry</a>{% endif %}
 
 </div>
 {% endfor %} {% endblock main %}

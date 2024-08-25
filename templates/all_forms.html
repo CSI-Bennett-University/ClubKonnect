@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block main %}
-  <div>
+  <div class="flex-col">
     <span class="text-4xl text-base-content">All forms</span>
 
     {% for form in forms %}
-      <div class="border border-accent rounded my-6 p-8 bg-base-200">
+      <div class="border border-accent rounded-none my-6 p-8 bg-base-200">
         <div class="flex justify-between">
           <div>
             <span class="text-3xl font-bold">{{ form.name }}</span><br/>
@@ -20,13 +20,13 @@
         </div>
         <div class="flex gap-2">
           {% if request.user.is_superuser %}
-          <a href="{% url 'form_details' form.id %}" class="btn btn-accent rounded-xl">Edit</a><br/>
+          <a href="{% url 'form_details' form.id %}" class="btn btn-accent rounded-none">Edit</a><br/>
           {% endif %}
-          <a href="{% url 'form_view' form.id %}" class="btn btn-accent rounded-xl" target="_blank">Preview 🡕</a>
-          <a href="{% url 'form_entries' form.id %}" class="btn btn-accent rounded-xl">View Responses</a>
+          <a href="{% url 'form_view' form.id %}" class="btn btn-accent rounded-none" target="_blank">Preview 🡕</a>
+          <a href="{% url 'form_entries' form.id %}" class="btn btn-accent rounded-none">View Responses</a>
         </div>
       </div>
     {% endfor %}
-    {% if request.user.is_superuser %}<a class="px-6 py-2 btn btn-accent rounded mb-6" href="/create_form/">New form</a>{% endif %}
+    {% if request.user.is_superuser %}<a class="px-6 py-2 btn btn-accent rounded-none mb-6" href="/create_form/">New form</a>{% endif %}
   </div>
 {% endblock %}

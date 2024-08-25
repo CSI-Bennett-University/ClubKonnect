@@ -64,22 +64,22 @@
 	getSocial()
 </script>
 {% endblock %} {% block main %}
-<h1 class="text-[min(7vw,2.25rem)] font-bold">{{ form.name }}</h1>
+<h1 class="text-[min(7vw,3rem)] font-bold text-primary">{{ form.name }}</h1>
 <p class="text-[min(4vw,1.5rem)]">{{ form.description }}</p>
 <form id="renderedForm" method="post" action="#">
 	{% csrf_token %}
 	<div id="fields" class="form-control">
 		{% for i in form.fields.all %}
-		<div class="mt-4">
-			<label for="{{ i }}" class="label justify-start text-xl"
-				>{{ i }}{% if i.is_required %}<span class="text-red-500 mx-5">*</span>{% endif %}</label
+		<div class="mt-6 mb-6">
+			<label for="{{ i }}" class="justify-start text-2xl"
+				>{{ i }}{% if i.is_required %}<span class="text-red-500 mx-1">*</span>{% endif %}</label
 			>
 			{% if i.description %}
-			<p class="help-text mb-2">{{ i.description }}</p>
+			<p class="help-text mb-2 py-2">{{ i.description }}</p>
 			{% endif %} {% if i.field_type == 'text' %}
 			<input
 				type="text"
-				class="input input-accent rounded w-full placeholder-gray-500"
+				class="border-red-500 focus:outline-none focus:ring-sky-600 focus:ring-2 text-white bg-[#0b101d] rounded-none w-full p-4"
 				id="{{ i }}"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
@@ -92,7 +92,7 @@
 			{% elif i.field_type == 'textarea' %}
 			<textarea
 				id="{{ i }}"
-				class="textarea textarea-accent rounded w-full placeholder-gray-500"
+				class="border-red-500 focus:outline-none focus:ring-sky-600 focus:ring-2 text-white bg-[#0b101d] rounded-none w-full"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
 				{%
@@ -105,7 +105,7 @@
 			<select
 				id="{{ i }}"
 				name="{{ i }}"
-				class="select select-accent rounded select-sm placeholder-gray-500"
+				class="select select-accent rounded-none select-sm placeholder-gray-500"
 				{%
 				if
 				i.is_required
@@ -126,19 +126,22 @@
 				{% endfor %}
 			</div>
 			{% elif i.field_type == 'checkbox' %} {% for j in i.choices.all %}
-			<label class="flex gap-4 cursor-pointer label w-full"
-				>{{ j }}
-				<input
-					type="checkbox"
-					class="checkbox rounded checkbox-accent"
-					name="{{ i }}"
-					id="{{ j }}"
-					value="{{ j }}" />
+			<label class="cursor-pointer flex flex-col"
+				>
+				<div class="py-2 px-2 flex items-center">
+					<input
+						type="checkbox"
+						class="checkbox rounded-none checkbox-accent"
+						name="{{ i }}"
+						id="{{ j }}"
+						value="{{ j }}" />
+					<span class="label-text px-3">{{ j }}</span>
+				</div>
 			</label>
 			{% endfor %} {% elif i.field_type == 'email' %}
 			<input
 				type="email"
-				class="input rounded input-accent w-full placeholder-gray-500"
+				class="border-red-500 focus:outline-none focus:ring-sky-600 focus:ring-2 text-white bg-[#0b101d] rounded-none w-full p-4"
 				id="{{ i }}"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
@@ -163,7 +166,7 @@
 			{% elif i.field_type == 'number' %}
 			<input
 				type="number"
-				class="input input-accent rounded w-full placeholder-gray-500"
+				class="border-red-500 focus:outline-none focus:ring-sky-600 focus:ring-2 text-white bg-[#0b101d] rounded-none w-full p-4"
 				id="{{ i }}"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
@@ -176,7 +179,7 @@
 			{% elif i.field_type == 'url' %}
 			<input
 				type="url"
-				class="input input-accent rounded w-full placeholder-gray-500"
+				class="border-red-500 focus:outline-none focus:ring-sky-600 focus:ring-2 text-white bg-[#0b101d] rounded-none w-full p-4"
 				id="{{ i }}"
 				name="{{ i }}"
 				placeholder="{{ i.placeholder }}"
@@ -240,7 +243,7 @@
 	</div>
 
 	<div>
-		<button type="button" class="btn btn-accent mt-6 rounded" id="submit_form" onclick="submitForm()">
+		<button type="button" class="btn btn-accent mt-6 rounded-none" id="submit_form" onclick="submitForm()">
 			<span id="submit_form_txt">Submit Form</span>
 		</button>
 	</div>
