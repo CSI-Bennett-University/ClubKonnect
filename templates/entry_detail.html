@@ -208,19 +208,19 @@
 
 <div class="mb-4">
   <div class="text-xl font-semibold">Notes:</div>
-  <textarea class="w-full textarea textarea-accent rounded mt-2" rows="10" id="notes_text" onkeydown="debouncedFunction_notes()">
+  <textarea class="w-full textarea textarea-accent rounded-none mt-2" rows="10" id="notes_text" onkeydown="debouncedFunction_notes()">
 {{ entry.notes }}</textarea>
   <div>
-  <button class="btn btn-accent rounded mt-4" onclick="save_notes()" id="notes_save_btn"><span id="save_btn_txt">Saved</span></button>
+  <button class="btn btn-accent rounded-none mt-4" onclick="save_notes()" id="notes_save_btn"><span id="save_btn_txt">Saved</span></button>
   </div>
 </div>
 
 <div>
   <div class="text-xl font-semibold">Feedback:</div>
-  <textarea class="w-full textarea textarea-accent rounded mt-2" rows="10" id="feedback_text" onkeydown="debouncedFunction_feedback()">
+  <textarea class="w-full textarea textarea-accent rounded-none mt-2" rows="10" id="feedback_text" onkeydown="debouncedFunction_feedback()">
 {{ entry.feedback }}</textarea>
   <div>
-  <button class="btn btn-accent rounded mt-4" onclick="save_notes()" id="feedback_save_btn"><span id="save_btn_txt_f">Saved</span></button>
+  <button class="btn btn-accent rounded-none mt-4" onclick="save_notes()" id="feedback_save_btn"><span id="save_btn_txt_f">Saved</span></button>
   </div>
 </div>
 
@@ -230,7 +230,7 @@
     <label for="change_status">
     <span class="label-text">Change Status</span>
     </label><br/>
-  <select id="change_status" class="select select-accent select-sm rounded">
+  <select id="change_status" class="select select-accent select-sm rounded-none">
     <option value="pending" {% if entry.status  == 'pending' %}selected{% endif %}>Pending</option>
     <option value="under_review" {% if entry.status  == 'under_review' %}selected{% endif %}>Under Review</option>
     <option value="shortlisted" {% if entry.status  == 'shortlisted' %}selected{% endif %}>Shortlisted</option>
@@ -238,7 +238,7 @@
     <option value="rejected" {% if entry.status  == 'rejected' %}selected{% endif %}>Rejected</option>
   </select>
   <br/>
-  <button onclick="confirm_change_status_modal.showModal()" class="btn btn-outline btn-accent rounded my-4 my-2" id="change_status"><span id="change_status_txt">Change</span></button>
+  <button onclick="confirm_change_status_modal.showModal()" class="btn btn-outline btn-accent rounded-none my-4 my-2" id="change_status"><span id="change_status_txt">Change</span></button>
   </div>
 </div>
 

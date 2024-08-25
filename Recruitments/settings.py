@@ -35,7 +35,7 @@ if os.getenv('DEBUG') == 'True':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://'+ os.environ['WEBSITE_HOSTNAME']]
 if os.getenv('WEBSITE_DOMAIN') is not None:
     CSRF_TRUSTED_ORIGINS.append('https://'+ os.environ['WEBSITE_DOMAIN'])
@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     'widget_tweaks',
     'forms',
+    'slippers',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +124,9 @@ DATABASES = {
     'PASSWORD': os.getenv('DB_PASS'),
     'HOST': os.getenv('DB_HOST'),
     'PORT': '5432',
+    'OPTIONS': {
+	'sslmode': 'require',
+},
   }
 }
 
@@ -166,14 +170,14 @@ USE_I18N = True
 USE_TZ = True
 
 
-DEFAULT_FROM_EMAIL = "CSI BU <hi@csi-bu.live>"
-EMAIL_BACKEND = 'Recruitments.custom_email_backend.ConditionalEmailBackend'
+DEFAULT_FROM_EMAIL = "CSI BU <csi.bennett.university@gmail.com>"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-SERVER_EMAIL = os.getenv("hi@csi-bu.live")
+SERVER_EMAIL = os.getenv("EMAIL_HOST_USER")
 
 ANYMAIL = {
     "SENDINBLUE_API_KEY": os.getenv('SENDINBLUE_KEY'),

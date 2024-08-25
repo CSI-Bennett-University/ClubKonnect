@@ -9,7 +9,7 @@
     <div>
       {% for message in messages %}
       <div class="flex justify-center">
-        <div class="flex items-center px-4 py-3 text-sm font-bold text-white bg-blue-500 rounded-xl mb-4 w-1/2" role="alert">
+        <div class="flex items-center px-4 py-3 text-sm text-primary bg-prinary/20 rounded-none mb-4 w-1/2" role="alert">
           <p>{{ message }}</p>
         </div>
       </div>
@@ -18,7 +18,7 @@
     {% endif %}
     {% block content %}
     <div class="flex flex-col items-center justify-center">
-      <div class="flex flex-col items-center p-12 backdrop-blur bg-accent/5 rounded shadow-lg grow-0 rounded-2xl border border-accent text-white">
+      <div class="flex flex-col items-center p-12 rounded-none shadow-2xl grow-0 text-secondary bg-[#0b101d]">
         {% block whitebox %}
         {% endblock %}
     </div>
